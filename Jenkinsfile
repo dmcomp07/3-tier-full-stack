@@ -6,7 +6,7 @@ pipeline {
     }
     
     environment {
-        SCANNER_HOME = tool "sonar-scanner"
+        SCANNER_HOME = tool "sonarqube"
     }
 
     stages {
@@ -33,7 +33,7 @@ pipeline {
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh "$SCANNER_HOME/bin/sonarqube -Dsonar.projectKey=Campground -Dsonar.projectName=Campground"  // Corrected sonar property
+                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Campground -Dsonar.projectName=Campground"  // Corrected sonar property
                 }
             }
         }
