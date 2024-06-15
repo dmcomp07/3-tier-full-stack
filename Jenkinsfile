@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        nodejs 'node 21'
+        nodejs 'nodejs-test'
     }
     
     environment {
