@@ -1,5 +1,5 @@
 # Use Node 18 as parent image
-FROM node:18
+FROM node:21
 
 # Change the working directory on the Docker image to /app
 WORKDIR /app
