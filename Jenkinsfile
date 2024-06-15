@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/Shubham-Stunner/3-Tier-Full-Stack.git'
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/dmcomp07/3-tier-full-stack.git'
             }
         }
         stage('Install Depedencies') {
