@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     tools {
-        nodejs 'node21'
+        nodejs 'node20'
     }
     
     environment {
@@ -41,8 +41,8 @@ pipeline {
         stage('Docker build & Tag') {
             steps {
                 script{
-                    withDockerRegistry(credentialsId: 'docker-cred1', toolName: 'docker ') {
-                        sh "docker build -t stunnershubham/camp:latest ."
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker ') {
+                        sh "docker build -t dmcomp07/camp:latest ."
                     }
                 }
             }
@@ -56,7 +56,7 @@ pipeline {
             steps {
                 script{
                     withDockerRegistry(credentialsId: 'docker-cred1', toolName: 'docker ') {
-                        sh "docker push stunnershubham/camp:latest"
+                        sh "docker push dmcomp07/camp:latest"
                     }
                 }
             }
@@ -64,8 +64,8 @@ pipeline {
         stage('Docker Deploy to Dev') {
             steps {
                 script{
-                    withDockerRegistry(credentialsId: 'docker-cred1', toolName: 'docker ') {
-                        sh "docker run -d -p 3000:3000 stunnershubham/camp:latest"
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker ') {
+                        sh "docker run -d -p 3000:3000 dmcomp07/camp:latest"
                     }
                 }
             }
