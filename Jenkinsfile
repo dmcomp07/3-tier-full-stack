@@ -6,7 +6,7 @@ pipeline {
     }
     
     environment {
-        SCANNER_HOME= tool "sonar-scanner"
+        SCANNER_HOME = tool "sonar-scanner"
     }
 
     stages {
@@ -15,7 +15,7 @@ pipeline {
                 git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/dmcomp07/3-tier-full-stack.git'
             }
         }
-        stage('Install Depedencies') {
+        stage('Install Dependencies') {  // Typo corrected from "Depedencies"
             steps {
                 sh "npm install"
             }
@@ -33,15 +33,14 @@ pipeline {
         stage('SonarQube') {
             steps {
                 withSonarQubeEnv('sonar') {
-                    sh " $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Campground -DsonarprojectName=Campground"
+                    sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Campground -Dsonar.projectName=Campground"  // Corrected sonar property
                 }
             }
-            
         }
         stage('Docker build & Tag') {
             steps {
-                script{
-                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker ') {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {  // Removed extra space
                         sh "docker build -t dmcomp07/camp:latest ."
                     }
                 }
@@ -49,13 +48,13 @@ pipeline {
         }
         stage('Trivy Image Scan') {
             steps {
-                sh "trivy image --format table -o fs-report.html stunnershubham/camp:latest"
+                sh "trivy image --format table -o image-report.html dmcomp07/camp:latest"  // Changed report file name to avoid overwriting
             }
         }
         stage('Docker Push Image') {
             steps {
-                script{
-                    withDockerRegistry(credentialsId: 'docker-cred1', toolName: 'docker ') {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred1', toolName: 'docker') {  // Removed extra space
                         sh "docker push dmcomp07/camp:latest"
                     }
                 }
@@ -63,8 +62,8 @@ pipeline {
         }
         stage('Docker Deploy to Dev') {
             steps {
-                script{
-                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker ') {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {  // Removed extra space
                         sh "docker run -d -p 3000:3000 dmcomp07/camp:latest"
                     }
                 }
