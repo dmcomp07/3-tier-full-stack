@@ -54,7 +54,7 @@ pipeline {
         stage('Docker Push Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker-cred1', toolName: 'docker') {  // Removed extra space
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {  // Removed extra space
                         sh "docker push dmcomp07/camp:latest"
                     }
                 }
