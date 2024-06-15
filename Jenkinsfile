@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/dmcomp07/3-tier-full-stack.git'
+                git branch: 'main', url: 'https://github.com/dmcomp07/3-tier-full-stack.git'
             }
         }
         stage('Install Dependencies') {  // Typo corrected from "Depedencies"
