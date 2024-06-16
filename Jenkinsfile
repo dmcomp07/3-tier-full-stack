@@ -41,6 +41,7 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {  // Removed extra space
+						sh "sudo chmod 666 /var/run/docker.sock"
                         sh "docker build -t dmcomp07/camp:latest ."
                     }
                 }
