@@ -40,9 +40,9 @@ pipeline {
         stage('Docker build & Tag') {
             steps {
                 script {
+					sh "sudo chmod 666 /var/run/docker.sock"
                     withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {  // Removed extra space
-						sh "sudo chmod 666 /var/run/docker.sock"
-                        sh "docker build -t dmcomp07/camp:latest ."
+						                        sh "docker build -t dmcomp07/camp:latest ."
                     }
                 }
             }
