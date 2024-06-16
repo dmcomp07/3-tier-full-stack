@@ -6,7 +6,7 @@ pipeline {
     }
     
     environment {
-        SCANNER_HOME = tool "sonarqube-api"
+        SCANNER_HOME = tool "sonarqube"
     }
 
     stages {
@@ -32,7 +32,7 @@ pipeline {
         }
         stage('SonarQube') {
             steps {
-                withSonarQubeEnv('sonarqube-api') {
+                withSonarQubeEnv('sonar') {
                     sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Campground -Dsonar.projectName=Campground"  // Corrected sonar property
                 }
             }
@@ -40,7 +40,7 @@ pipeline {
         stage('Docker build & Tag') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {  // Removed extra space
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {  // Removed extra space
                         sh "docker build -t dmcomp07/camp:latest ."
                     }
                 }
@@ -54,7 +54,7 @@ pipeline {
         stage('Docker Push Image') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {  // Removed extra space
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {  // Removed extra space
                         sh "docker push dmcomp07/camp:latest"
                     }
                 }
@@ -63,7 +63,7 @@ pipeline {
         stage('Docker Deploy to Dev') {
             steps {
                 script {
-                    withDockerRegistry(credentialsId: 'docker', toolName: 'docker') {  // Removed extra space
+                    withDockerRegistry(credentialsId: 'docker-id', toolName: 'docker') {  // Removed extra space
                         sh "docker run -d -p 3000:3000 dmcomp07/camp:latest"
                     }
                 }
