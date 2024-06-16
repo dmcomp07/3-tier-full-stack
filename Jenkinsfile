@@ -32,7 +32,7 @@ pipeline {
         }
         stage('SonarQube') {
             steps {
-                withSonarQubeEnv('sonarqube-api') {
+                withSonarQubeEnv('sonaqube-api') {
                     sh "$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectKey=Campground -Dsonar.projectName=Campground"  // Corrected sonar property
                 }
             }
