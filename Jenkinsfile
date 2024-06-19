@@ -72,7 +72,7 @@ pipeline {
         }
 		stage('Deploy To EKS') {
 				steps {
-					withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'eks4', contextName: '', credentialsId: 'kube-secret', namespace: 'webapps', serverUrl: 'https://0805558F972194C17AD5336B025AC53B.gr7.us-east-1.eks.amazonaws.com']]) {
+					withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'eks4', contextName: '', credentialsId: 'kube-secret', namespace: 'webapps', serverUrl: 'https://54F3D54B522DCA8FF9FF99A61DE57FEC.gr7.us-east-1.eks.amazonaws.com']]) {
 					sh "kubectl apply -f Manifests/dss.yml"
 
 				}
@@ -80,7 +80,7 @@ pipeline {
 		}
 		stage('Verify Deployment') {
 				steps {
-					withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'eks4', contextName: '', credentialsId: 'kube-secret', namespace: 'webapps', serverUrl: 'https://0805558F972194C17AD5336B025AC53B.gr7.us-east-1.eks.amazonaws.com']]) {
+					withKubeCredentials(kubectlCredentials: [[caCertificate: '', clusterName: 'eks4', contextName: '', credentialsId: 'kube-secret', namespace: 'webapps', serverUrl: 'https://54F3D54B522DCA8FF9FF99A61DE57FEC.gr7.us-east-1.eks.amazonaws.com']]) {
 					sh "kubectl get svc -n webapps"
 					sh "kubectl get pods -n webapps"
 
